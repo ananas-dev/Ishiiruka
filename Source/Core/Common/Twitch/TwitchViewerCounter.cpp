@@ -81,10 +81,10 @@ unsigned int TwitchViewerCounter::ParseResponse(std::string response_string) {
 
     if (!response_string.empty())
     {
-        json response_json = json::parse(response_string);
-        if (response_json["data"][0].find("viewer_count") != response_json["data"][0].end())
+        json response_json = json::parse(response_string)["data"][0];
+        if (response_json.find("viewer_count") != response_json.end())
         {
-            viewers = response_json["data"][0]["viewer_count"];
+            viewers = response_json["viewer_count"];
         }
     }
     return viewers;
