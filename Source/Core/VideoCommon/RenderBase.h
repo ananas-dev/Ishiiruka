@@ -25,6 +25,7 @@
 #include "Common/Event.h"
 #include "Common/Flag.h"
 #include "Common/MathUtil.h"
+#include "Common/Twitch/TwitchViewerCounter.h"
 #include "VideoCommon/AVIDump.h"
 
 #include "VideoCommon/BPMemory.h"
@@ -180,6 +181,8 @@ protected:
 	bool m_xfb_written{};
 
 	FPSCounter m_fps_counter;
+
+	TwitchViewerCounter m_twitch_viewer_counter;
 
 	std::unique_ptr<PostProcessor> m_post_processor;
 

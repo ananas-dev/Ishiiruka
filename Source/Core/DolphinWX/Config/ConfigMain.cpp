@@ -17,6 +17,7 @@
 #include "DolphinWX/Config/AdvancedConfigPane.h"
 #include "DolphinWX/Config/AudioConfigPane.h"
 #include "DolphinWX/Config/SlippiConfigPane.h"
+#include "DolphinWX/Config/TwitchConfigPane.h"
 #include "DolphinWX/Config/GameCubeConfigPane.h"
 #include "DolphinWX/Config/GeneralConfigPane.h"
 #include "DolphinWX/Config/InterfaceConfigPane.h"
@@ -79,6 +80,7 @@ void CConfigMain::CreateGUIControls()
 	wxPanel* const audio_pane = new AudioConfigPane(Notebook, ID_AUDIOPAGE);
 #ifndef IS_PLAYBACK
 	wxPanel *const slippi_pane = new SlippiConfigPane(Notebook, ID_SLIPPIPAGE);
+	wxPanel* const twitch_pane = new TwitchConfigPane(Notebook, ID_TWITCHPAGE);
 #endif
 	wxPanel* const gamecube_pane = new GameCubeConfigPane(Notebook, ID_GAMECUBEPAGE);
 	wxPanel* const wii_pane = new WiiConfigPane(Notebook, ID_WIIPAGE);
@@ -90,6 +92,7 @@ void CConfigMain::CreateGUIControls()
 	Notebook->AddPage(audio_pane, _("Audio"));
 #ifndef IS_PLAYBACK
 	Notebook->AddPage(slippi_pane, _("Slippi"));
+	Notebook->AddPage(twitch_pane, _("Twitch"));
 #endif
 	Notebook->AddPage(gamecube_pane, _("GameCube"));
 	Notebook->AddPage(wii_pane, _("Wii"));

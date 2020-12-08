@@ -34,7 +34,9 @@ set(SRCS Analytics.cpp
          MD5.cpp
          Crypto/bn.cpp
          Crypto/ec.cpp
-         Logging/LogManager.cpp)
+         Logging/LogManager.cpp
+		 Twitch/TwitchViewerCounter.cpp
+         )
 
 if(ANDROID)
 	set(SRCS ${SRCS}

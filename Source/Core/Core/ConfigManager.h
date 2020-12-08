@@ -143,6 +143,9 @@ struct SConfig : NonCopyable
 	bool m_blockingPipes = false;
 	bool m_coutEnabled = false;
 
+	bool m_twitchEnableViewerCounter = false;
+	std::string m_strTwitchStreamUrl;
+
 	bool bDPL2Decoder = false;
 	bool bTimeStretching = false;
 	bool bRSHACK = false;

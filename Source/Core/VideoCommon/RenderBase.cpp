@@ -34,6 +34,7 @@
 #include "Common/StringUtil.h"
 #include "Common/Thread.h"
 #include "Common/Timer.h"
+#include "Common/Twitch/TwitchViewerCounter.h"
 
 #include "Core/ConfigManager.h"
 #include "Core/Core.h"
@@ -360,6 +361,19 @@ void Renderer::DrawDebugText()
 		final_cyan += "\n";
 		final_yellow += "\n";
 	}
+
+	if (SConfig::GetInstance().m_twitchEnableViewerCounter)
+	{
+		m_twitch_viewer_counter.SetStreamer(SConfig::GetInstance().m_strTwitchStreamUrl);
+		m_twitch_viewer_counter.StartOrContinueSideProcess();
+		final_cyan += StringFromFormat("Viewers: %u\n", m_twitch_viewer_counter.GetTwitchViewers());
+		final_yellow += "\n";
+	} 
+	else
+	{
+		m_twitch_viewer_counter.StopSideProcess();
+	}
+	
 
 	if (SConfig::GetInstance().m_ShowLag)
 	{

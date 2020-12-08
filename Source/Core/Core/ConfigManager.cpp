@@ -284,6 +284,8 @@ void SConfig::SaveCoreSettings(IniFile& ini)
 	core->Set("SlippiSaveReplays", m_slippiSaveReplays);
 	core->Set("SlippiReplayMonthFolders", m_slippiReplayMonthFolders);
 	core->Set("SlippiReplayDir", m_strSlippiReplayDir);
+	core->Set("TwitchEnableViewerCounter", m_twitchEnableViewerCounter);
+	core->Set("TwitchStreamUrl", m_strTwitchStreamUrl);
 	core->Set("BlockingPipes", m_blockingPipes);
 	core->Set("MemcardAPath", m_strMemoryCardA);
 	core->Set("MemcardBPath", m_strMemoryCardB);
@@ -623,6 +625,8 @@ void SConfig::LoadCoreSettings(IniFile& ini)
 	core->Get("SlippiReplayDir", &m_strSlippiReplayDir, default_replay_dir);
 	if (m_strSlippiReplayDir.empty())
 		m_strSlippiReplayDir = default_replay_dir;
+	core->Get("TwitchEnableViewerCounter", &m_twitchEnableViewerCounter, false);
+	core->Get("TwitchStreamUrl", &m_strTwitchStreamUrl);
 	core->Get("BlockingPipes", &m_blockingPipes, false);
 	core->Get("MemcardAPath", &m_strMemoryCardA);
 	core->Get("MemcardBPath", &m_strMemoryCardB);
