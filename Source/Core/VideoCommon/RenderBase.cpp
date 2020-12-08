@@ -365,13 +365,13 @@ void Renderer::DrawDebugText()
 	if (SConfig::GetInstance().m_twitchEnableViewerCounter)
 	{
 		m_twitch_viewer_counter.SetStreamer(SConfig::GetInstance().m_strTwitchStreamUrl);
-		m_twitch_viewer_counter.StartOrContinueSideProcess();
+		m_twitch_viewer_counter.ParallelProcess(true);
 		final_cyan += StringFromFormat("Viewers: %u\n", m_twitch_viewer_counter.GetTwitchViewers());
 		final_yellow += "\n";
 	} 
 	else
 	{
-		m_twitch_viewer_counter.StopSideProcess();
+		m_twitch_viewer_counter.ParallelProcess(false);
 	}
 	
 

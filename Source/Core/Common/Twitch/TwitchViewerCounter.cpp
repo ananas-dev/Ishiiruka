@@ -34,12 +34,12 @@ void TwitchViewerCounter::SetStreamer(std::string stream_url)
 {
     if (!stream_url.empty())
     {
-		// Search for the substring in string
-		size_t pos = stream_url.find(m_twitch_domain);
-		if (pos != std::string::npos)
-		{
-			// If found then erase it from string
-			stream_url.erase(pos, m_twitch_domain.length());
+        // Search for the substring in string
+        size_t pos = stream_url.find(m_twitch_domain);
+        if (pos != std::string::npos)
+        {
+            // If found then erase it from string
+            stream_url.erase(pos, m_twitch_domain.length());
         }
     }
     m_streamer = stream_url;
@@ -55,14 +55,14 @@ std::string TwitchViewerCounter::ApiRequest(std::string user_login)
 
     if (curl && !user_login.empty())
     {
-		// Set the url
-		curl_easy_setopt(curl, CURLOPT_URL, StringFromFormat("%s%s", api_url.c_str(), user_login.c_str()).c_str());
+        // Set the url
+        curl_easy_setopt(curl, CURLOPT_URL, StringFromFormat("%s%s", api_url.c_str(), user_login.c_str()).c_str());
 
-		// Set the headers
-		struct curl_slist *headers = NULL;
-		headers = curl_slist_append(headers, StringFromFormat("Client-Id: %s", client_id).c_str());
-		headers = curl_slist_append(headers, StringFromFormat("Authorization: Bearer %s", access_token).c_str());
-		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers); 
+        // Set the headers
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, StringFromFormat("Client-Id: %s", client_id).c_str());
+        headers = curl_slist_append(headers, StringFromFormat("Authorization: Bearer %s", access_token).c_str());
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers); 
 
         // Get result
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
@@ -71,29 +71,28 @@ std::string TwitchViewerCounter::ApiRequest(std::string user_login)
         // Perform the request
         curl_easy_perform(curl);
     }
-	curl_easy_cleanup(curl);
-	curl = NULL;
-	return result_string;
+    curl_easy_cleanup(curl);
+    curl = NULL;
+    return result_string;
 }
 
 unsigned int TwitchViewerCounter::ParseResponse(std::string response_string) {
-    unsigned int viewers;
+    unsigned int viewers = 0;
 
     if (!response_string.empty())
     {
-		json response_json = json::parse(response_string);
-	    viewers = response_json["data"][0]["viewer_count"];
+        json response_json = json::parse(response_string);
+        if (response_json["data"][0].find("viewer_count") != response_json["data"][0].end())
+        {
+            viewers = response_json["data"][0]["viewer_count"];
+        }
     }
-    else
-    {
-        viewers = 0;
-    }
-	return viewers;
+    return viewers;
 }
 
-void TwitchViewerCounter::StartOrContinueSideProcess()
+void TwitchViewerCounter::ParallelProcess(bool running)
 {
-    if (!m_running)
+    if (running && !m_running)
     {
         m_running = true;
 
@@ -106,12 +105,7 @@ void TwitchViewerCounter::StartOrContinueSideProcess()
         });
         side_process.detach();
     }
-}
-
-
-void TwitchViewerCounter::StopSideProcess()
-{
-    if (m_running)
+    if (!running && m_running)
     {
         m_running = false;
         side_process.join(); 

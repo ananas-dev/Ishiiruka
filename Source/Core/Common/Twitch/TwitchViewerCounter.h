@@ -16,8 +16,7 @@ public:
     static unsigned int ParseResponse(std::string response);
 
     // Side Process
-    void StartOrContinueSideProcess();
-    void StopSideProcess();
+    void ParallelProcess(bool running);
 
     unsigned int GetTwitchViewers() const
     {
