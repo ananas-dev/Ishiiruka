@@ -3,33 +3,33 @@
 class TwitchViewerCounter
 {
 public:
-    TwitchViewerCounter();
-    ~TwitchViewerCounter();
+	TwitchViewerCounter();
+	~TwitchViewerCounter();
 
-    // Set the streamer
-    void SetStreamer(std::string stream_url);
+	// Set the streamer
+	void SetStreamer(std::string stream_url);
 
-    // Get the response from the twitch api
-    static std::string ApiRequest(std::string user_login);
+	// Get the response from the twitch api
+	static std::string ApiRequest(std::string user_login);
 
-    // Parse response
-    static unsigned int ParseResponse(std::string response);
+	// Parse response
+	static unsigned int ParseResponse(std::string response);
 
-    // Side Process
-    void ParallelProcess(bool running);
+	// Side Process
+	void ParallelProcess(bool running);
 
-    unsigned int GetTwitchViewers() const
-    {
-        return m_viewers;
-    }
+	unsigned int GetTwitchViewers() const
+	{
+		return m_viewers;
+	}
 
 private:
-    static size_t WriteCallback(void* ptr, size_t size, size_t nmemb, std::string* data);
+	static size_t WriteCallback(void* ptr, size_t size, size_t nmemb, std::string* data);
 
-    bool m_running = false;
-    std::thread side_process;
-    std::string m_streamer;
-    std::string m_twitch_domain = "https://www.twitch.tv/";
-    std::string m_response;
-    unsigned int m_viewers = 0;
+	bool m_running = false;
+	std::thread side_process;
+	std::string m_streamer;
+	std::string m_twitch_domain = "https://www.twitch.tv/";
+	std::string m_response;
+	unsigned int m_viewers = 0;
 };
