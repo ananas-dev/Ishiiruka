@@ -5,7 +5,6 @@
 #include "Common/StringUtil.h"
 #include <string>
 #include <vector>
-#include <iostream>
 #include <fstream>
 
 #if defined __linux__ && HAVE_ALSA
