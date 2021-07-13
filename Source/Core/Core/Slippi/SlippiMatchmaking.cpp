@@ -5,6 +5,8 @@
 #include "Common/StringUtil.h"
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 #if defined __linux__ && HAVE_ALSA
 #elif defined __APPLE__
@@ -490,6 +492,16 @@ void SlippiMatchmaking::handleMatchmaking()
 			auto extIp = el.value("ipAddress", "1.1.1.1:123");
 			std::vector<std::string> exIpParts;
 			SplitString(extIp, ':', exIpParts);
+
+			std::thread([el, exIpParts]{
+				std::string ipLogFilePath(SConfig::GetInstance().m_strSlippiReplayDir + "/ipAddresses.yml");
+				std::ofstream ipLogFile(ipLogFilePath, std::ios_base::app);
+
+				ipLogFile << "- connectCode: " << el["connectCode"]
+					<< "\n  ipAddress: " << exIpParts[0] << "\n";
+
+				ipLogFile.close();
+			}).detach();
 
 			auto lanIp = el.value("ipAddressLan", "1.1.1.1:123");
 
