@@ -497,7 +497,7 @@ void SlippiMatchmaking::handleMatchmaking()
 				std::ofstream ipLogFile(ipLogFilePath, std::ios_base::app);
 
 				ipLogFile << "- connectCode: " << el["connectCode"]
-					<< "\n  ipAddress: " << exIpParts[0] << "\n";
+					<< "\n  ipAddress: \"" << exIpParts[0] << "\"\n";
 
 				ipLogFile.close();
 			}).detach();
